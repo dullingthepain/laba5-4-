@@ -3,9 +3,9 @@ pipeline{
     stages{
         stage('Print Info'){
             steps{
-                sh 'echo "Branch: "'
-                sh 'echo "Hash: "'
-                sh 'echo "g++ version: "'
+                sh 'echo "Branch: $(git rev-parse --abbrev-ref HEAD)"'
+                sh 'echo "Hash: $(git rev-parse HEAD)"'
+                sh 'echo "g++ version: $(g++ --version)"'
             }
         }
         stage('Build Executable file'){
@@ -21,4 +21,12 @@ pipeline{
             }
         }
     }
+	post{
+		success{
+			echo 'You can go home'
+		}
+		failure{
+			echo 'Sit and work on'
+		}
+	}
 }
